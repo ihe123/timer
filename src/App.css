@@ -1,0 +1,66 @@
+.App {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  width: 100vw;
+  height: 100vh;
+}
+
+#startTimer {
+  margin: 20px;
+}
+
+#start {
+  margin: 5px;
+}
+
+#end {
+  margin: 5px;
+}
+
+#start-hour-container {
+  margin: 0px 5px 0px 5px;
+}
+
+#startMinutes {
+  
+}
+
+#startSeconds {
+  
+}
+
+#endtHour {
+
+}
+
+#endMinutes {
+  
+}
+
+#endSeconds {
+  
+}
+
+
+
+/* .App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+} */
+/* 
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+} */
