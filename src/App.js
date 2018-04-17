@@ -1,26 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import $ from 'jquery';
-
-// Simple Countdown Timer
-
-// Everything here should be coded in HTML and Javascript (ReactJS). You can use any package manager and/or boilerplate you'd like. Please send all source code files in an email (zipped/compressed) with instructions on how to run them.
-// Create an input to take a start time. The input should be in hh:mm:ss format, which represents: hour, minute and seconds, respectively. The input should be a valid input. 
-// Create an input to take an end time. The input should be in hh:mm:ss format. The end time should be a valid input and should represent a time later than the start time. 
-// Create an output div/text/span to represent the countdown counter (in seconds). 
-// Create a button with "Start Countdown" text on it. When user clicks the button, it should:
-// Verify both inputs' validity, and throw error message if there is a problem, e.g. input format, intervals, etc
-
-// KX: Bug -- negative timer interval doesn't throw error
-
-// Reset the countdown counter output div/text/span
-// Calculate the number of seconds difference between start time and end time, and display it as the output's initial state
-
-// KX: Bug -- timer is currently split into hh:mm:ss, rather than seconds
-
-// Start decreasing the output by one for every second (behave like a countdown timer)
-// All time inputs, output and button should be rendered in ReactJS.
-// Bonus point if you can use Redux for button action and state transition. 
+import $ from 'jquery'; 
 
 class App extends Component { 
   constructor(props) {
@@ -88,8 +68,8 @@ class App extends Component {
     let totalSecondsLeft; 
     if(this.state.startCountDown === false) {
       const { startHour, startMinutes, startSeconds, endHour, endMinutes, endSeconds } = this.state;
-      let startTotalSeconds = parseInt(startSeconds) + (parseInt(startMinutes) * 60) + (parseInt(startHour) * 3600);
-      let endTotalSeconds = parseInt(endSeconds) + (parseInt(endMinutes) * 60) + (parseInt(endHour) * 3600);
+      let startTotalSeconds = parseInt(startSeconds, 10) + (parseInt(startMinutes, 10) * 60) + (parseInt(startHour, 10) * 3600);
+      let endTotalSeconds = parseInt(endSeconds, 10) + (parseInt(endMinutes, 10) * 60) + (parseInt(endHour, 10) * 3600);
       totalSecondsLeft = endTotalSeconds - startTotalSeconds;
       this.setState({
         totalSecondsLeft: totalSecondsLeft
@@ -139,12 +119,12 @@ class App extends Component {
         clearInterval(this.state.timerId);
         clearTimeout(this.state.timeOut);
         this.calculateTime();
-        $('#startHour').val(""); 
-        $('#startMinute').val("");
-        $('#startSeconds').val("");
-        $('#endHour').val("");
-        $('#endMinute').val("");
-        $('#endSeconds').val("");
+        $('#start-hour').val(""); 
+        $('#start-minute').val("");
+        $('#start-seconds').val("");
+        $('#end-hour').val("");
+        $('#end-minute').val("");
+        $('#end-seconds').val("");
       }) 
       
     } else {
@@ -262,17 +242,17 @@ class App extends Component {
           </header>
           <div id="start">
             Start:
-            HH: <input type="text" id="startHour" onKeyUp={this.updateStartHour}/>
-            MM: <input type="text" id="startMinute" onKeyUp={this.updateStartMinutes}/>
-            SS: <input type="text" id="startSeconds" onKeyUp={this.updateStartSeconds}/>
+            HH: <input type="text" id="start-hour" onKeyUp={this.updateStartHour}/>
+            MM: <input type="text" id="start-minute" onKeyUp={this.updateStartMinutes}/>
+            SS: <input type="text" id="start-seconds" onKeyUp={this.updateStartSeconds}/>
           </div>
           <div id="end">
             End:
-            HH: <input type="text" id="endHour" onKeyUp={this.updateEndHour}/>
-            MM: <input type="text" id="endMinute" onKeyUp={this.updateEndMinutes}/>
-            SS: <input type="text" id="endSeconds" onKeyUp={this.updateEndSeconds}/>
+            HH: <input type="text" id="end-hour" onKeyUp={this.updateEndHour}/>
+            MM: <input type="text" id="end-minute" onKeyUp={this.updateEndMinutes}/>
+            SS: <input type="text" id="end-seconds" onKeyUp={this.updateEndSeconds}/>
           </div>
-          <button type="submit" id="startTimer" onClick={this.startCounter}>Start Countdown</button>
+          <button type="submit" id="start-timer" onClick={this.startCounter}>Start Countdown</button>
           <div>
             {this.state.error}
           </div>
