@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import $ from 'jquery'; 
 
 class App extends Component { 
   constructor(props) {
@@ -16,8 +15,8 @@ class App extends Component {
       error: "",
       totalSecondsLeft: 0,
       startCountDown: false,
-      timerId: '',
-      timeOut: ''
+      timerId: "",
+      timeOut: ""
     }
     
     this.updateStartHour = this.updateStartHour.bind(this);
@@ -119,12 +118,12 @@ class App extends Component {
         clearInterval(this.state.timerId);
         clearTimeout(this.state.timeOut);
         this.calculateTime();
-        $('#start-hour').val(""); 
-        $('#start-minute').val("");
-        $('#start-seconds').val("");
-        $('#end-hour').val("");
-        $('#end-minute').val("");
-        $('#end-seconds').val("");
+        document.querySelector('#start-hour').value = ""; 
+        document.querySelector('#start-minute').value = "";
+        document.querySelector('#start-seconds').value = "";
+        document.querySelector('#end-hour').value = "";
+        document.querySelector('#end-minute').value = "";
+        document.querySelector('#end-seconds').value = "";
       }) 
       
     } else {
@@ -137,51 +136,51 @@ class App extends Component {
         error: ""
       })
   
-      for(let i = 0; i < allHours.length; i++) {
-        if(allHours[i].length !== 2) {
-          error = "invalid input";
+      for (let i = 0; i < allHours.length; i++) {
+        if (allHours[i].length !== 2) {
+          error = "invalid input -- make sure inputs are zero-padded. All fields required.";
           this.setState({
             error: "invalid input"
           })
-          throw new Error('invalid input');
+          console.log('Error: ', error);
         }
   
         let timeHour = +allHours[i];
         
-        if(isNaN(timeHour) || (timeHour < 0 || timeHour >= 24)) {
-          error = "invalid input";
+        if (isNaN(timeHour) || (timeHour < 0 || timeHour >= 24)) {
+          error = "invalid input -- input hour must be between 00 and 24. All fields required.";
           this.setState({
             error: "invalid input"
           })
-          console.log('invalid input');
+          console.log('Error: ', error);
         }
       }
   
-      for(let j = 0; j < allMinutesAndSeconds.length; j++) {
-        if(allMinutesAndSeconds[j].length !== 2) {
-          error = "invalid input";
+      for (let j = 0; j < allMinutesAndSeconds.length; j++) {
+        if (allMinutesAndSeconds[j].length !== 2) {
+          error = "invalid input -- make sure inputs are zero-padded. All fields required.";
           this.setState({
             error: "invalid input"
           })
-          console.log('invalid input');
+          console.log('Error: ', error);
         }
   
         let timeSecMin = +allMinutesAndSeconds[j];
-        if(isNaN(timeSecMin) || (allMinutesAndSeconds[j] < 0 || allMinutesAndSeconds[j] >= 60)) {
-          error = "invalid input";
+        if (isNaN(timeSecMin) || (allMinutesAndSeconds[j] < 0 || allMinutesAndSeconds[j] >= 60)) {
+          error = "invalid input -- input minutes must be between 00 and 60. All fields required.";
           this.setState({
             error: "invalid input"
           })
-          console.log('invalid input');
+          console.log('Error: ', error);
         }
       }
 
-      if(startHour > endHour) {
+      if (startHour > endHour) {
         error = "invalid input";
         this.setState({
           error: "invalid input"
         })
-      } else if(startHour === "00") {
+      } else if (startHour === "00") {
         if(startMinutes > endMinutes) {
           error = "invalid input";
           this.setState({
@@ -189,8 +188,8 @@ class App extends Component {
           })
          console.log('invalid input');
         }
-      } else if(startMinutes === "00") {
-        if(startSeconds > endSeconds) {
+      } else if (startMinutes === "00") {
+        if (startSeconds > endSeconds) {
           error = "invalid input";
           this.setState({
             error: "invalid input"
@@ -199,7 +198,7 @@ class App extends Component {
         }
       }
   
-      if(error.length === 0) {
+      if (error.length === 0) {
         let countDownFrom = this.calculateTime();
         this.setState({
           counter: countDownFrom
@@ -224,8 +223,8 @@ class App extends Component {
             }, this.state.totalSecondsLeft * 1000);
 
             this.setState({
-              timerId: timerId,
-              timeOut: timeOut
+              timerId,
+              timeOut
             })
           }) 
         })
