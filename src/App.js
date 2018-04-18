@@ -5,18 +5,18 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      startHour: "00",
-      startMinutes: "00",
-      startSeconds: "00",
-      endHour: "00",
-      endMinutes: "00",
-      endSeconds: "00",
-      counter: "", 
-      error: "",
+      startHour: '00',
+      startMinutes: '00',
+      startSeconds: '00',
+      endHour: '00',
+      endMinutes: '00',
+      endSeconds: '00',
+      counter: '', 
+      error: '',
       totalSecondsLeft: 0,
       startCountDown: false,
-      timerId: "",
-      timeOut: ""
+      timerId: '',
+      timeOut: ''
     }
     
     this.updateStartHour = this.updateStartHour.bind(this);
@@ -83,19 +83,19 @@ class App extends Component {
     let seconds = totalSecondsLeft - (minutes * 60);
     
     if (hours.toString().length !== 2) {
-      hours = "0" + hours;
+      hours = '0' + hours;
     }
     if (minutes.toString().length !== 2) {
-      minutes = "0" + minutes;
+      minutes = '0' + minutes;
     }
     if (seconds.toString().length !== 2) {
-      seconds = "0" + seconds;
+      seconds = '0' + seconds;
     }
     this.setState({
-      counter: hours + ":" + minutes + ":" + seconds
+      counter: hours + ':' + minutes + ':' + seconds
     })
     
-    return  hours[0] !== "-" ? hours + ":" + minutes + ":" + seconds : "";
+    return  totalSecondsLeft[0] !== '-' ? hours + ':' + minutes + ':' + seconds : '';
   }
 
   startCounter() {
@@ -104,43 +104,43 @@ class App extends Component {
     if (this.state.startCountDown === true) {
       
       this.setState({
-        startHour: "00",
-        startMinutes: "00",
-        startSeconds: "00",
-        endHour: "00",
-        endMinutes: "00",
-        endSeconds: "00",
-        counter: "", 
-        error: "",
+        startHour: '00',
+        startMinutes: '00',
+        startSeconds: '00',
+        endHour: '00',
+        endMinutes: '00',
+        endSeconds: '00',
+        counter: '', 
+        error: '',
         totalSecondsLeft: 0,
         startCountDown: false
       }, () => {
         clearInterval(this.state.timerId);
         clearTimeout(this.state.timeOut);
         this.calculateTime();
-        document.querySelector('#start-hour').value = ""; 
-        document.querySelector('#start-minute').value = "";
-        document.querySelector('#start-seconds').value = "";
-        document.querySelector('#end-hour').value = "";
-        document.querySelector('#end-minute').value = "";
-        document.querySelector('#end-seconds').value = "";
+        document.querySelector('#start-hour').value = ''; 
+        document.querySelector('#start-minute').value = '';
+        document.querySelector('#start-seconds').value = '';
+        document.querySelector('#end-hour').value = '';
+        document.querySelector('#end-minute').value = '';
+        document.querySelector('#end-seconds').value = '';
       }) 
       
     } else {
       const { startHour, startMinutes, startSeconds, endHour, endMinutes, endSeconds } = this.state;
       let allMinutesAndSeconds = [startHour, startMinutes, startSeconds, endHour, endMinutes, endSeconds];
       let allHours = [startHour, endHour];
-      let error = "";
+      let error = '';
       
       this.setState({
-        error: ""
+        error: ''
       })
   
       for (let i = 0; i < allHours.length; i++) {
         if (allHours[i].length !== 2) {
-          error = "invalid input -- make sure inputs are zero-padded. All fields required.";
+          error = 'invalid input -- make sure inputs are zero-padded. All fields required.';
           this.setState({
-            error: "invalid input"
+            error
           })
           console.log('Error: ', error);
         }
@@ -148,9 +148,9 @@ class App extends Component {
         let timeHour = +allHours[i];
         
         if (isNaN(timeHour) || (timeHour < 0 || timeHour >= 24)) {
-          error = "invalid input -- input hour must be between 00 and 24. All fields required.";
+          error = 'invalid input -- input hour must be between 00 and 24. All fields required.';
           this.setState({
-            error: "invalid input"
+            error
           })
           console.log('Error: ', error);
         }
@@ -158,43 +158,44 @@ class App extends Component {
   
       for (let j = 0; j < allMinutesAndSeconds.length; j++) {
         if (allMinutesAndSeconds[j].length !== 2) {
-          error = "invalid input -- make sure inputs are zero-padded. All fields required.";
+          error = 'invalid input -- make sure inputs are zero-padded. All fields required.';
           this.setState({
-            error: "invalid input"
+            error
           })
           console.log('Error: ', error);
         }
   
         let timeSecMin = +allMinutesAndSeconds[j];
         if (isNaN(timeSecMin) || (allMinutesAndSeconds[j] < 0 || allMinutesAndSeconds[j] >= 60)) {
-          error = "invalid input -- input minutes must be between 00 and 60. All fields required.";
+          error = 'invalid input -- input minutes must be between 00 and 60. All fields required.';
           this.setState({
-            error: "invalid input"
+            error
           })
           console.log('Error: ', error);
         }
       }
 
       if (startHour > endHour) {
-        error = "invalid input";
+        error = 'invalid input -- start hour must be less than end hour.';
         this.setState({
-          error: "invalid input"
+          error
         })
-      } else if (startHour === "00") {
-        if(startMinutes > endMinutes) {
-          error = "invalid input";
+        console.log('Error: ', error);
+      } else if (startHour === '00') {
+        if (startMinutes > endMinutes) {
+          error = 'invalid input -- end time must be ahead of start time.';
           this.setState({
-            error: "invalid input"
+            error
           })
-         console.log('invalid input');
+          console.log('Error: ', error);
         }
-      } else if (startMinutes === "00") {
+      } else if (startHour === '00' && startMinutes === '00') {
         if (startSeconds > endSeconds) {
-          error = "invalid input";
+          error = 'invalid input -- end time must be ahead of start time.';
           this.setState({
-            error: "invalid input"
+            error
           })
-          console.log('invalid input');
+          console.log('Error: ', error);
         }
       }
   
@@ -234,31 +235,31 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="Timer-container">
-          <header className="App-header">
-            <h1 className="App-title">Count Down Timer</h1>
+      <div className='App'>
+        <div className='Timer-container'>
+          <header className='App-header'>
+            <h1 className='App-title'>Count Down Timer</h1>
           </header>
-          <div id="start">
+          <div id='start'>
             Start:
-            HH: <input type="text" id="start-hour" onKeyUp={this.updateStartHour}/>
-            MM: <input type="text" id="start-minute" onKeyUp={this.updateStartMinutes}/>
-            SS: <input type="text" id="start-seconds" onKeyUp={this.updateStartSeconds}/>
+            HH: <input type='text' id='start-hour' onKeyUp={this.updateStartHour}/>
+            MM: <input type='text' id='start-minute' onKeyUp={this.updateStartMinutes}/>
+            SS: <input type='text' id='start-seconds' onKeyUp={this.updateStartSeconds}/>
           </div>
-          <div id="end">
+          <div id='end'>
             End:
-            HH: <input type="text" id="end-hour" onKeyUp={this.updateEndHour}/>
-            MM: <input type="text" id="end-minute" onKeyUp={this.updateEndMinutes}/>
-            SS: <input type="text" id="end-seconds" onKeyUp={this.updateEndSeconds}/>
+            HH: <input type='text' id='end-hour' onKeyUp={this.updateEndHour}/>
+            MM: <input type='text' id='end-minute' onKeyUp={this.updateEndMinutes}/>
+            SS: <input type='text' id='end-seconds' onKeyUp={this.updateEndSeconds}/>
           </div>
-          <button type="submit" id="start-timer" onClick={this.startCounter}>Start Countdown</button>
+          <button type='submit' id='start-timer' onClick={this.startCounter}>Start Countdown</button>
           <div>
             {this.state.error}
           </div>
-          <div id="counter">
+          <div id='counter'>
             {this.state.counter}
           </div>
-          <div id="totalSecondsLeft">
+          <div id='totalSecondsLeft'>
             {this.state.totalSecondsLeft} seconds left
           </div>
         </div>
