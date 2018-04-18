@@ -65,7 +65,7 @@ class App extends Component {
 
   calculateTime() {
     let totalSecondsLeft; 
-    if(this.state.startCountDown === false) {
+    if (this.state.startCountDown === false) {
       const { startHour, startMinutes, startSeconds, endHour, endMinutes, endSeconds } = this.state;
       let startTotalSeconds = parseInt(startSeconds, 10) + (parseInt(startMinutes, 10) * 60) + (parseInt(startHour, 10) * 3600);
       let endTotalSeconds = parseInt(endSeconds, 10) + (parseInt(endMinutes, 10) * 60) + (parseInt(endHour, 10) * 3600);
@@ -82,13 +82,13 @@ class App extends Component {
     let minutes = Math.floor(totalSecondsLeft/60);
     let seconds = totalSecondsLeft - (minutes * 60);
     
-    if(hours.toString().length !== 2) {
+    if (hours.toString().length !== 2) {
       hours = "0" + hours;
     }
-    if(minutes.toString().length !== 2) {
+    if (minutes.toString().length !== 2) {
       minutes = "0" + minutes;
     }
-    if(seconds.toString().length !== 2) {
+    if (seconds.toString().length !== 2) {
       seconds = "0" + seconds;
     }
     this.setState({
@@ -101,7 +101,7 @@ class App extends Component {
   startCounter() {
     let timerId;
     let timeOut;
-    if(this.state.startCountDown === true) {
+    if (this.state.startCountDown === true) {
       
       this.setState({
         startHour: "00",
